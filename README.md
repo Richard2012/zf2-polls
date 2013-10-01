@@ -13,7 +13,7 @@ Here are the steps to make the module work inside of your ZF2 application:
 
 1. Install the database running the .sql provided.
 
-2. Enter poll data (uestion and answers). You can have more then one poll.
+2. Enter poll data (poll question and answers). You can create more then one poll.
 
 3. Do configuration work on Zend Framework (probably the most difficult). We will elaborate more on this later.
 
