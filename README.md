@@ -17,7 +17,7 @@ Here are the steps to make the module work inside of your ZF2 application:
 
 3. Do configuration work on Zend Framework (probably the most difficult). We will elaborate more on this later.
 
-4. Adjust the .css. Make it beautiful. Each poll is design to have its own .css. Naming convantion: pollX.css where X ith the poll id.
+4. Adjust the .css. Make it beautiful. Each poll is design to have its own .css. Naming convention: pollX.css where X is the poll id.
 
 Once this is done, it will be very trivial to incorporate the poll in any HTML page per IFRAME 
 We were once considering to have the polls run as partial view helper, but gave up the idea because we want the polls to run on any website, even those without Zend 2 or even without PHP.
