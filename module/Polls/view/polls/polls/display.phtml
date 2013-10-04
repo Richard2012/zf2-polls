@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+    <title>Poll</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <base href="<?php echo $this->basePath(); ?>" />
+    <link rel="stylesheet" type="text/css"
+          href="<?php echo $this->basePath( 'public/css/poll' . $this->pollId . '.css'); ?>" />
+    <meta name="robots" content="noindex,nofollow">
+</head>
+<body>
+<?php if ($this->hasJustVoted) : ?>
+    <div class="ok_thumb">
+        <img src="<?php echo $this->basePath( 'public/css/images/ok-thumb30.png'); ?>">
+    </div>
+<?php endif; ?>
+
+<h1>Poll</h1>
+
+<p class="question"><?php echo $this->escapeHtml($this->question); ?></p>
+
+<!--unicode block character for horizontal bar display:
+    http://mindprod.com/jgloss/hexentities.html#HEXENTITIES   '&#x2592;' -->
+<?php foreach ($this->radios as $radio) : ?>
+
+    <span class="radio_answer"><?php echo $radio['answer']; ?></span>
+    <div class="voting_bar"><?php echo $radio['votingBar']; ?></div>
+    <div  class="voting_percent">&nbsp; <?php echo $radio['votingPercent']; ?>%</div>
+
+<?php endforeach; ?>
+
+<div align="center" class="radio_answer">
+    <?php if ($this->hasVoted) : ?>
+        <div class="has_voted">
+            <?php echo $this->escapeHtml($this->youHaveVotedText); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php echo $this->escapeHtml($this->totalVotesText) . ': ' . $this->totalVotes; ?>
+
+    <?php if ( ! $this->hasVoted) : ?>
+        <br>
+        <a href="<?php echo $this->basePath( 'poll/' . $this->pollId); ?>">
+            <?php echo $this->escapeHtml($this->returnToPollText); ?></a>
+    <?php endif; ?>
+</div>
+
+</body>
+</html>
