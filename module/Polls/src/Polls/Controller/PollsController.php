@@ -3,14 +3,11 @@ namespace Polls\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-//use Polls\Model\Answers;
-//use Polls\Model\Polls;
-use Polls\Form\newPollForm;
 
 /*
  * TODO: IPv6 not yet processed
  * TODO: Internationalisation (text in different languages)
- * TODO: Check if iframe is in permitted domain (optional)
+ * TODO: Check if <iframe> is in permitted domain (optional)
  *
  * */
 class PollsController extends AbstractActionController
@@ -26,6 +23,7 @@ class PollsController extends AbstractActionController
 
     /*
      * These can be modified by developers
+     * Multiple languages are planned for the next version
      * */
     public $maxCharsInBar       = 20;
     public $showNumberVotes     = true;
@@ -56,11 +54,8 @@ class PollsController extends AbstractActionController
     function pollAction() {
 
         // Getting the param from the URL
-        $event   = $this->getEvent();
-        $matches = $event->getRouteMatch();
-        $pid = $matches->getParam('id');
-        $this->pollId = $pid;
-
+        $this->getPollIdFromRouteIfEmpty();
+        
         $pollData = $this->getPollData();
         $view = new ViewModel($pollData);
         $view->setTerminal(true);
