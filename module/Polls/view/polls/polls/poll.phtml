@@ -21,9 +21,10 @@
                value="<?php echo $radio->id; ?>"
                class="radio_question">
         <span class="radio_answer"><?php echo $radio->answer; ?></span>
+        <div class="divider"></div>
     <?php endforeach; ?>
     <input type="hidden" name="pollId" value="<?php echo $this->pollId; ?>">
-    <input type="hidden" name="voter"  value="">
+    <input type="hidden" name="voter" value="">
 
     <div align="center">
         <br>
