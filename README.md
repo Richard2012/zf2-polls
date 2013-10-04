@@ -15,7 +15,12 @@ Here are the steps to make the module work inside of your ZF2 application:
 
 2. Enter poll data (poll question and answers) to the tables. Use phpMyAdmin or similar. Backend for DB is not part of the project. You can create more then one poll.
 
-3. Do configuration work on Zend Framework (probably the most difficult part). We will elaborate more on this later.
+3. Do configuration work on Zend Framework (probably the most difficult part). Here are the files to work on:
+    - write your own config/autoload/local.php. It should have the credentials for the DB
+    - check config/autoload/local.php. Just in case you have changed the DB name for example.
+    - in config/application.config.php add Polls to the modules array.
+    - check module/Polls/Module.php You may need to adjust the paths in the table factories.
+    - in module/Polls/config/module.config.php you must adjust base_path for the view manager.
 
 4. Adjust the .css. Make it beautiful. Each poll is design to have its own .css. Naming convention: pollX.css where X is the poll id.
 
