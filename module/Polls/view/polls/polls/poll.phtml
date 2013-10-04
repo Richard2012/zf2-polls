@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Poll</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <base href="<?php echo $this->basePath(); ?>" />
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="stylesheet" type="text/css"
+          href="<?php echo $this->basePath( 'public/css/poll' . $this->pollId . '.css'); ?>" />
+</head>
+<body>
+<h1><?php echo 'Poll'; ?></h1>
+
+<p class="question"><?php echo $this->escapeHtml($this->question); ?></p>
+
+<form action="<?php echo $this->basePath() . '/reply/' . $this->pollId ; ?>" method="POST">
+
+    <?php foreach ($this->radios as $radio) : ?>
+        <input type="radio" name="pollAnswer"
+               value="<?php echo $radio->id; ?>"
+               class="radio_question">
+        <span class="radio_answer"><?php echo $radio->answer; ?></span>
+    <?php endforeach; ?>
+    <input type="hidden" name="pollId" value="<?php echo $this->pollId; ?>">
+    <input type="hidden" name="voter"  value="">
+
+    <div align="center">
+        <br>
+        <?php if ($this->hasVoted) : ?>
+            <?php echo $this->escapeHtml($this->hasVotedText); ?>
+        <?php else: ?>
+            <button type="submit"><?php echo $this->escapeHtml($this->replyButton); ?></button>
+        <?php endif; ?>
+        <br>
+        <a href="<?php echo $this->basePath( 'display/' . $this->pollId); ?>">
+            <?php echo $this->escapeHtml($this->seeResultsText); ?></a>
+    </div>
+</form>
+
+</body>
+</html>
+
