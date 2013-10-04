@@ -9,8 +9,8 @@ use Polls\Form\newPollForm;
 
 /*
  * TODO: IPv6 not yet processed
- * TODO: Internationalisation (different languages)
- * TODO: Check if iframe is in permitted domain
+ * TODO: Internationalisation (text in different languages)
+ * TODO: Check if iframe is in permitted domain (optional)
  *
  * */
 class PollsController extends AbstractActionController
@@ -25,13 +25,17 @@ class PollsController extends AbstractActionController
     protected $hasJustVoted = false;
 
     /*
-     * These can modified by developers
+     * These can be modified by developers
      * */
-    public $maxCharsInBar   = 20;
-    public $showNumberVotes = true;
-    public $replyButton     = 'Vote';
-    public $hasVotedText    = 'You have voted already';
-    public $seeResultsText  = 'See results without voting';
+    public $maxCharsInBar       = 20;
+    public $showNumberVotes     = true;
+    public $replyButton         = 'Vote';
+    public $hasVotedText        = 'You have voted already';
+    public $seeResultsText      = 'See results without voting';
+    public $returnToPollText    = 'Return to poll';
+    public $totalVotesText      = 'Total votes';
+    public $youHaveVotedText    = 'You have voted already';
+
 
     public function __construct($pid=null) {
 
@@ -150,15 +154,18 @@ class PollsController extends AbstractActionController
 
     /*
      * Displays poll results
-     * No form, just horizontal bars and % of votes displayed
+     * Horizontal bars and % of votes are displayed
      * */
     public function displayAction()
     {
 
         $this->getPollIdFromRouteIfEmpty();
-        $pollData                   = $this->getPollResultsData();
-        $pollData['hasVoted']       = $this->hasVoted;
-        $pollData['hasJustVoted']   = $this->hasJustVoted;
+        $pollData                       = $this->getPollResultsData();
+        $pollData['hasVoted']           = $this->hasVoted;
+        $pollData['hasJustVoted']       = $this->hasJustVoted;
+        $pollData['youHaveVotedText']   = $this->youHaveVotedText;
+        $pollData['totalVotesText']     = $this->totalVotesText;
+        $pollData['returnToPollText']   = $this->returnToPollText;
 
         $view = new ViewModel();
         $view->setTerminal(true);
@@ -202,6 +209,7 @@ class PollsController extends AbstractActionController
      *
      * Only if we want to verify, if IFRAME was placed on the authorised domain:
      * // TODO write the function interface to javascript $this->getDomainFromJavascript()
+     * Possibly relevant are:
      * parent.location.href;   parent.document.URL
      * $this->getRequest()->getServer('HTTP_REFERER')
      *  */
@@ -212,7 +220,7 @@ class PollsController extends AbstractActionController
 
         // $this->getRequest()->getHeader('HTTP_REFERER', $defaultValue);
 
-//        $motherDomain = $this->getDomainFromJavascript(); // to be written
+//        $motherDomain = $this->getDomainFromJavascript(); // a function to be written
 //        if ( $motherDomain <> $poll->server_name ) {
 //            die('iframed on a unathorised server');
 //        }
@@ -236,7 +244,6 @@ class PollsController extends AbstractActionController
 
     public function getPollResultsData()
     {
-
         $poll       = $this->getPollsTable()->getPoll( $this->pollId);
         $answers    = $this->getAnswersTable()->fetchAnswers( $this->pollId);
 
@@ -297,7 +304,6 @@ class PollsController extends AbstractActionController
         } else if ($percent100 < 100) {
             $resultsWithPercentage[$minId]['votingPercent']++;
         }
-
         $pollData = array(
             'title'         => $poll->name,
             'question'      => $poll->question,
