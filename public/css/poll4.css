@@ -29,6 +29,12 @@ button {
     color: #ffffff;
     height: 28px;
 }
+
+.divider {
+    height:1px;
+    width:100%;
+    clear: both;
+}
 .question {
     font-family: verdana,helvetica,sans-serif;
     font-size: 15px;
