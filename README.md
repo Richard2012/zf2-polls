@@ -24,6 +24,7 @@ We were once considering to have the polls run as partial view helper, but gave 
 
 
 THIS COMMIT IS NOT YET COMPLETED. We are just starting on github by writing a README.
+Still missing here: view .phtml's 
 
 
 Send bugs, questions and comments to iteam@gmx.com
